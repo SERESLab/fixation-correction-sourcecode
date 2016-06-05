@@ -55,3 +55,6 @@ docs/_build/
 
 # PyBuilder
 target/
+*.xml
+.idea/fixation-correction-sourcecode.iml
+.idea/.name
