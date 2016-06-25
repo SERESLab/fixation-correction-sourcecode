@@ -21,9 +21,24 @@ Author: Chris Palmer
 
 def correct_cluster(listofclusters, listofaois):
     """
-    <estimated return type> <function_name> (<parameters>)
+    None correct_cluster(list[list[point]], list[AOI])
     PRECONDITION(S):
+        given a list[list[point]] (list of clusters) and a list of AOIs
+        Point has the properties:
+            -autoxCorrected - the x coordinate of a point that has been corrected automatically
+            -autoyCorrected - the y coordinate of a point that has been corrected automatically
+
+            -x - original x coordinate of a point
+            -y - original y coordinate of a point
+
     POSTCONDITION(S):
+        all autoCorrect points in the list[list[point]] are set to the value of their original points
+        if a cluster in the list[list[]] scores 0 from the scoring function
+            the cluster is moved toward the nearest aoi
+
+        hillclimb is called on the current state of each cluster
+
+        note: all passes are done by reference
     """
     for cluster in listofclusters:
         for point in cluster:
@@ -32,20 +47,24 @@ def correct_cluster(listofclusters, listofaois):
         if find_score_multi_aoi(cluster, listofaois) == 0:
             move_cluster_toward_aoi(cluster, listofaois)
 
-        print("hillclimber")
         hillclimb(cluster, listofaois)
 
 
 def find_score_multi_aoi(cluster, listofaois):
     """
-    <estimated return type> <function_name> (<parameters>)
+    float find_score_multi_aoi (list[point], list[AOI])
     PRECONDITION(S):
+        given a list of points and a list of AOIs
+        Point has the properties:
+
+        AOI has the properties:
     POSTCONDITION(S):
     """
     list_of_points_in_aoi = []
     debug_points = []
     for point in cluster:
         if debug_points.count(point) > 0:
+            # todo throw an exception?
             print "point repeat error"
         debug_points.append(point)
         for aoi in listofaois:

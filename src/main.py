@@ -96,6 +96,8 @@ def find_corrected_distance(point):
 
 
 def accuracy_by_aoi(list_of_aois, list_of_clusters):
+    # TODO throw exception for n/0
+    # TODO return 0 for 0/0
     """
     float/str accuracy_by_aoi (list[aoi], list[list[point]])
     PRECONDITION(S): given a list of AOI objects and a list[list[]] of points:
