@@ -1,4 +1,3 @@
-import objects
 import math
 import numpy
 import globalVariables
@@ -8,6 +7,7 @@ import globalVariables
 NUMBER_OF_ELEMENTS_TO_REMOVE = 0
 
 # function to check if object exists in list
+
 
 def make_one_cluster_per_file(listOfPoints):
     returnList = []
@@ -22,6 +22,7 @@ def make_one_cluster_per_point(listOfPoints):
 
     return returnList
 
+
 def contains(list, filter):
     for x in list:
         if filter(x):
@@ -31,8 +32,10 @@ def contains(list, filter):
 
 f = globalVariables.files
 
+
 def median(lst):
     return numpy.median(numpy.array(lst))
+
 
 def create_cluster(sessionpoints):
     # sessionpoints is a list of points

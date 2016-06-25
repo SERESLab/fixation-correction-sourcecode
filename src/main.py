@@ -1,16 +1,9 @@
-# imports
-import read_files
 import make_points
 import make_cluster
 import aoi_import
 import correct_clusters
 import math
-import plot_points
-import numpy
-import os
 import csv
-import objects
-import globalVariables
 
 
 def find_number_of_corrected_points(list_of_clusters):
@@ -39,6 +32,7 @@ def find_corrected_distance(point):
     return math.sqrt(math.pow(int(point.xCorrected - point.x), 2) +
                      math.pow(int(point.yCorrected - point.y), 2))
 
+
 def accuracy_by_aoi(list_of_aois, list_of_clusters):
     numberOfAccuratePoints = 0
     number_of_points = 0
@@ -56,17 +50,14 @@ def accuracy_by_aoi(list_of_aois, list_of_clusters):
             return 'No points'
     else:
         return float(numberOfAccuratePoints) / float(number_of_points)
-#-------------------Main structure----------------------------
-# variables
+
+
+# -------------------Main structure----------------------------
+
 clustersbyFile = {}
 aoi_dict = {}
 output = open('test.txt', 'w')
-
 outputClusters = open('cluster.txt', 'w')
-
-# fileOfPoints dict of lists of points
-# for i in fileOfPoints:
-#     fileOfPoints[i]
 fileOfPoints = make_points.make_points()
 
 # todo functionalize these loops
@@ -88,9 +79,7 @@ for filename in fileOfPoints:
     # return one cluster for each point * this one performs better. or at least makes better numbers
     #clustersbyFile[filename] = make_cluster.make_one_cluster_per_point(fileOfPoints[filename])
 
-# put loop here for correction function
 for aoifilename in aoi_dict:
-    #print aoifilename
     correct_clusters.correct_cluster(clustersbyFile[aoifilename], aoi_dict[aoifilename])
 
 for file_name in clustersbyFile:
@@ -128,20 +117,3 @@ for filename in clustersbyFile:
                                  'y-auto-cor': point.autoyCorrected,
                                  'x-improvement': abs(int(point.x - point.autoxCorrected)-int(point.x - point.xCorrected)),
                                  'y-improvement': abs(int(point.y - point.autoyCorrected)-int(point.y - point.yCorrected))})
-
-'''
-for aoifilename in aoi_dict:
-    plot_points.plot_aois(aoi_dict[aoifilename], aoifilename, clustersbyFile[aoifilename])
-'''
-#print(str(sum(list_ofNumber_of_clusters)/len(list_ofNumber_of_clusters)) + ' avg clusters per session')
-
-# clustersByfile[filename] =
-
-#for filename in globalVariables.files:
-#    cluster = make_cluster.create_cluster(fileOfPoints.get_session(filename))
-#clusters = make_cluster.make_cluster(fileOfPoints)
-
-#number_of_dist = 0
-#for listOfClusters in clusters.clusterDict:
-#    number_of_dist += len(listOfClusters)
-#print("avg number of distances "+str(number_of_dist/len(globalVariables.files)))

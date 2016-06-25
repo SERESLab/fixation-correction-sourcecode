@@ -1,11 +1,9 @@
-
 def correct_cluster(listofclusters, listofaois):
     for cluster in listofclusters:
         for point in cluster:
             point.autoxCorrected = point.x
             point.autoyCorrected = point.y
         if find_score_multi_aoi(cluster, listofaois) == 0:
-            #print("toward a northern light")
             move_cluster_toward_aoi(cluster, listofaois)
 
         print("hillclimber")
@@ -19,12 +17,10 @@ def find_score_multi_aoi(cluster, listofaois):
         if debug_points.count(point) > 0:
             print "point repeat error"
         debug_points.append(point)
-        #print "outer loop"
         for aoi in listofaois:
             if point_in_aoi(point, aoi):
                 if list_of_points_in_aoi.count(point) == 0:
                     list_of_points_in_aoi.append(point)
-    #print(str(len(list_of_points_in_aoi))+'/'+str(len(cluster)))
     return float(len(list_of_points_in_aoi))/float(len(cluster))
 
 
@@ -55,14 +51,7 @@ def hillclimb(cluster, listofaois):
     down = find_score_multi_aoi(cluster, listofaois)
     shift_dir(cluster, 'up', movevertdistance)
     current = find_score_multi_aoi(cluster, listofaois)
-    #print("current " + str(current))
-    #print("left " + str(left))
-    #print("right " + str(right))
-    #print("up " + str(up))
-    #print("down " + str(down))
     while movevertdistance >= 1 or movehordistance >= 1:
-        #print("vert dist " + str(movevertdistance))
-        #print("hor dist " + str(movehordistance))
         while current < left or current < right or current < up or current < down:
             hillclimbloop += 1
             print("hillclimb loop " + str(hillclimbloop))
@@ -108,10 +97,6 @@ def shift_dir(cluster, direction, distance):
             point.autoyCorrected += distance
 
     return
-
-# def hillclimb_single(cluster, aoi):
-
-# def find_cluster_area(cluster):
 
 
 def move_cluster_toward_aoi(cluster, listofaois):
