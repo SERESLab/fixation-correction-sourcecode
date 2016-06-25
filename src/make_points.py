@@ -3,7 +3,7 @@ This file is part of Fixation-Correction-Sourcecode.
 
 Fixation-Correction-Sourcecode is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
+the Free Software Foundation, either version 2 of the License, or
 (at your option) any later version.
 
 Fixation-Correction-Sourcecode is distributed in the hope that it will be useful,
@@ -25,9 +25,11 @@ import csv
 
 def make_points():
     """
-    <estimated return type> <function_name> (<parameters>)
+    dict{filename: list[Point]} make_points()
     PRECONDITION(S):
+        globalVariables.files is a list of filenames
     POSTCONDITION(S):
+        return dict of list of points by filename
     """
     dict_of_points = {}
 
@@ -39,9 +41,11 @@ def make_points():
 
 def create_list_of_points(filename):
     """
-    <estimated return type> <function_name> (<parameters>)
+    list[Point] create_list_of_points(str)
     PRECONDITION(S):
+        the string is a valid filename
     POSTCONDITION(S):
+        return a list[Point] of Points generated from the given filename
     """
     # variables
     point_list = []
