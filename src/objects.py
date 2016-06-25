@@ -1,7 +1,40 @@
+"""
+This file is part of Fixation-Correction-Sourcecode.
+
+Fixation-Correction-Sourcecode is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Fixation-Correction-Sourcecode is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Fixation-Correction-Sourcecode.  If not, see <http://www.gnu.org/licenses/>.
+
+Copyright 2015
+Author: Chris Palmer
+"""
+
 import math
 
 
 class Distance(object):
+    """
+    <class_name> (<constructor params>)
+    CONSTRUCTION:
+
+    METHOD(S):
+    <estimated return type> <method name> (<params>)
+    PRECONDITION(S):
+    POSTCONDITION(S):
+
+    MEMBER VARIABLE(S):
+    <name> <unit (optional)>
+    PURPOSE:
+    """
     def __init__(self, point1, point2):
         self.point1 = point1
         self.point2 = point2
@@ -9,6 +42,19 @@ class Distance(object):
 
 
 class Aoi(object):
+    """
+    <class_name> (<constructor params>)
+    CONSTRUCTION:
+
+    METHOD(S):
+    <estimated return type> <method name> (<params>)
+    PRECONDITION(S):
+    POSTCONDITION(S):
+
+    MEMBER VARIABLE(S):
+    <name> <unit (optional)>
+    PURPOSE:
+    """
     def __init__(self, kind, name, x, y, width, height):
         self.kind = kind
         self.name = name
@@ -27,6 +73,19 @@ class Aoi(object):
 
 
 class Point(object):
+    """
+    <class_name> (<constructor params>)
+    CONSTRUCTION:
+
+    METHOD(S):
+    <estimated return type> <method name> (<params>)
+    PRECONDITION(S):
+    POSTCONDITION(S):
+
+    MEMBER VARIABLE(S):
+    <name> <unit (optional)>
+    PURPOSE:
+    """
     def __init__(self, x, y, duration, startTime, endTime, aoi, xCorrected, yCorrected, filename):
         self.x = x
         self.y = y
@@ -54,6 +113,19 @@ class Point(object):
 
 
 class SessionsOfPoints:
+    """
+    <class_name> (<constructor params>)
+    CONSTRUCTION:
+
+    METHOD(S):
+    <estimated return type> <method name> (<params>)
+    PRECONDITION(S):
+    POSTCONDITION(S):
+
+    MEMBER VARIABLE(S):
+    <name> <unit (optional)>
+    PURPOSE:
+    """
     def __init__(self):
         self.listOfFiles = {}
 
@@ -68,6 +140,19 @@ class SessionsOfPoints:
 
 
 class FileOfClusters:
+    """
+    <class_name> (<constructor params>)
+    CONSTRUCTION:
+
+    METHOD(S):
+    <estimated return type> <method name> (<params>)
+    PRECONDITION(S):
+    POSTCONDITION(S):
+
+    MEMBER VARIABLE(S):
+    <name> <unit (optional)>
+    PURPOSE:
+    """
     def __init__(self):
         self.clusterDict = {}
 

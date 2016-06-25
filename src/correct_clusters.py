@@ -1,4 +1,30 @@
+"""
+This file is part of Fixation-Correction-Sourcecode.
+
+Fixation-Correction-Sourcecode is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Fixation-Correction-Sourcecode is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Fixation-Correction-Sourcecode.  If not, see <http://www.gnu.org/licenses/>.
+
+Copyright 2015
+Author: Chris Palmer
+"""
+
+
 def correct_cluster(listofclusters, listofaois):
+    """
+    <estimated return type> <function_name> (<parameters>)
+    PRECONDITION(S):
+    POSTCONDITION(S):
+    """
     for cluster in listofclusters:
         for point in cluster:
             point.autoxCorrected = point.x
@@ -11,6 +37,11 @@ def correct_cluster(listofclusters, listofaois):
 
 
 def find_score_multi_aoi(cluster, listofaois):
+    """
+    <estimated return type> <function_name> (<parameters>)
+    PRECONDITION(S):
+    POSTCONDITION(S):
+    """
     list_of_points_in_aoi = []
     debug_points = []
     for point in cluster:
@@ -25,6 +56,11 @@ def find_score_multi_aoi(cluster, listofaois):
 
 
 def point_in_aoi(point, aoi):
+    """
+    <estimated return type> <function_name> (<parameters>)
+    PRECONDITION(S):
+    POSTCONDITION(S):
+    """
     if point.autoxCorrected >= aoi.x and point.autoxCorrected <= (aoi.x + aoi.width):
         if point.autoyCorrected >= aoi.y and point.autoyCorrected <= (aoi.y + aoi.height):
             return True
@@ -35,6 +71,11 @@ def point_in_aoi(point, aoi):
 
 
 def hillclimb(cluster, listofaois):
+    """
+    <estimated return type> <function_name> (<parameters>)
+    PRECONDITION(S):
+    POSTCONDITION(S):
+    """
     movevertdistance = get_maxY(cluster) - get_minY(cluster)
     movehordistance = get_maxX(cluster) - get_minX(cluster)
     hillclimbloop = 0
@@ -83,6 +124,11 @@ def hillclimb(cluster, listofaois):
 
 
 def shift_dir(cluster, direction, distance):
+    """
+    <estimated return type> <function_name> (<parameters>)
+    PRECONDITION(S):
+    POSTCONDITION(S):
+    """
     if direction == 'left':
         for point in cluster:
             point.autoxCorrected -= distance
@@ -100,6 +146,11 @@ def shift_dir(cluster, direction, distance):
 
 
 def move_cluster_toward_aoi(cluster, listofaois):
+    """
+    <estimated return type> <function_name> (<parameters>)
+    PRECONDITION(S):
+    POSTCONDITION(S):
+    """
     nearestaoi = find_nearest_aoi(cluster, listofaois)
     while find_score_multi_aoi(cluster, listofaois) == 0:
         moved = False
@@ -124,6 +175,11 @@ def move_cluster_toward_aoi(cluster, listofaois):
 
 
 def get_maxX(cluster):
+    """
+    <estimated return type> <function_name> (<parameters>)
+    PRECONDITION(S):
+    POSTCONDITION(S):
+    """
     maxX = 0
     for point in cluster:
         if point.autoxCorrected > maxX:
@@ -132,6 +188,11 @@ def get_maxX(cluster):
 
 
 def get_maxY(cluster):
+    """
+    <estimated return type> <function_name> (<parameters>)
+    PRECONDITION(S):
+    POSTCONDITION(S):
+    """
     maxY = 0
     for point in cluster:
         if point.autoyCorrected > maxY:
@@ -139,6 +200,11 @@ def get_maxY(cluster):
     return maxY
 
 def get_minX(cluster):
+    """
+    <estimated return type> <function_name> (<parameters>)
+    PRECONDITION(S):
+    POSTCONDITION(S):
+    """
     minX = cluster[0].x
     for point in cluster:
         if point.autoxCorrected < minX:
@@ -147,6 +213,11 @@ def get_minX(cluster):
 
 
 def get_minY(cluster):
+    """
+    <estimated return type> <function_name> (<parameters>)
+    PRECONDITION(S):
+    POSTCONDITION(S):
+    """
     minY = cluster[0].y
     for point in cluster:
         if point.autoyCorrected < minY:
@@ -155,6 +226,11 @@ def get_minY(cluster):
 
 
 def find_nearest_aoi(cluster, listofaois):
+    """
+    <estimated return type> <function_name> (<parameters>)
+    PRECONDITION(S):
+    POSTCONDITION(S):
+    """
     maxX = get_maxX(cluster)
     maxY = get_maxY(cluster)
     minX = get_minX(cluster)

@@ -1,3 +1,23 @@
+"""
+This file is part of Fixation-Correction-Sourcecode.
+
+Fixation-Correction-Sourcecode is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Fixation-Correction-Sourcecode is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Fixation-Correction-Sourcecode.  If not, see <http://www.gnu.org/licenses/>.
+
+Copyright 2015
+Author: Chris Palmer
+"""
+
 import make_points
 import make_cluster
 import aoi_import
@@ -7,6 +27,11 @@ import csv
 
 
 def find_number_of_corrected_points(list_of_clusters):
+    """
+    <estimated return type> <function_name> (<parameters>)
+    PRECONDITION(S):
+    POSTCONDITION(S):
+    """
     count = 0
     for cluster in list_of_clusters:
         for pointInCluster in cluster:
@@ -16,6 +41,11 @@ def find_number_of_corrected_points(list_of_clusters):
 
 
 def find_number_of_points(list_of_clusters):
+    """
+    <estimated return type> <function_name> (<parameters>)
+    PRECONDITION(S):
+    POSTCONDITION(S):
+    """
     count = 0
     for cluster in list_of_clusters:
         for pointInCluster in cluster:
@@ -24,16 +54,31 @@ def find_number_of_points(list_of_clusters):
 
 
 def find_autocorrected_distance(point):
+    """
+    <estimated return type> <function_name> (<parameters>)
+    PRECONDITION(S):
+    POSTCONDITION(S):
+    """
     return math.sqrt(math.pow(int(point.autoxCorrected - point.xCorrected), 2) +
                      math.pow(int(point.autoyCorrected - point.yCorrected), 2))
 
 
 def find_corrected_distance(point):
+    """
+    <estimated return type> <function_name> (<parameters>)
+    PRECONDITION(S):
+    POSTCONDITION(S):
+    """
     return math.sqrt(math.pow(int(point.xCorrected - point.x), 2) +
                      math.pow(int(point.yCorrected - point.y), 2))
 
 
 def accuracy_by_aoi(list_of_aois, list_of_clusters):
+    """
+    <estimated return type> <function_name> (<parameters>)
+    PRECONDITION(S):
+    POSTCONDITION(S):
+    """
     numberOfAccuratePoints = 0
     number_of_points = 0
     for cluster in list_of_clusters:

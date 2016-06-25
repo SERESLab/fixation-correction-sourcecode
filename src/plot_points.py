@@ -1,18 +1,45 @@
-import numpy
-import matplotlib
+"""
+This file is part of Fixation-Correction-Sourcecode.
+
+Fixation-Correction-Sourcecode is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Fixation-Correction-Sourcecode is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Fixation-Correction-Sourcecode.  If not, see <http://www.gnu.org/licenses/>.
+
+Copyright 2015
+Author: Chris Palmer
+"""
+
 import matplotlib.pyplot as plt
-import pylab
 from matplotlib.patches import Rectangle
 import globalVariables
 
 
 def plot_points(listofpoints, filename, listofaois):
+    """
+    <estimated return type> <function_name> (<parameters>)
+    PRECONDITION(S):
+    POSTCONDITION(S):
+    """
     for point in listofpoints:
         plt.plot(point.x, -point.y, 'bo', label=filename)
     plt.savefig('point-plots/'+filename+'.png')
 
 
 def plot_aois(listofaois, filename, list_of_clusters):
+    """
+    <estimated return type> <function_name> (<parameters>)
+    PRECONDITION(S):
+    POSTCONDITION(S):
+    """
     numerOfAois = 0
     print globalVariables.AOI_FILES[filename]
     for aoi in listofaois:

@@ -1,3 +1,23 @@
+"""
+This file is part of Fixation-Correction-Sourcecode.
+
+Fixation-Correction-Sourcecode is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Fixation-Correction-Sourcecode is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Fixation-Correction-Sourcecode.  If not, see <http://www.gnu.org/licenses/>.
+
+Copyright 2015
+Author: Chris Palmer
+"""
+
 import math
 import numpy
 import globalVariables
@@ -10,12 +30,22 @@ NUMBER_OF_ELEMENTS_TO_REMOVE = 0
 
 
 def make_one_cluster_per_file(listOfPoints):
+    """
+    <estimated return type> <function_name> (<parameters>)
+    PRECONDITION(S):
+    POSTCONDITION(S):
+    """
     returnList = []
     returnList.append(listOfPoints)
     return returnList
 
 
 def make_one_cluster_per_point(listOfPoints):
+    """
+    <estimated return type> <function_name> (<parameters>)
+    PRECONDITION(S):
+    POSTCONDITION(S):
+    """
     returnList = []
     for point in listOfPoints:
         returnList.append([point])
@@ -24,6 +54,11 @@ def make_one_cluster_per_point(listOfPoints):
 
 
 def contains(list, filter):
+    """
+    <estimated return type> <function_name> (<parameters>)
+    PRECONDITION(S):
+    POSTCONDITION(S):
+    """
     for x in list:
         if filter(x):
             return True
@@ -34,10 +69,20 @@ f = globalVariables.files
 
 
 def median(lst):
+    """
+    <estimated return type> <function_name> (<parameters>)
+    PRECONDITION(S):
+    POSTCONDITION(S):
+    """
     return numpy.median(numpy.array(lst))
 
 
 def create_cluster(sessionpoints):
+    """
+    <estimated return type> <function_name> (<parameters>)
+    PRECONDITION(S):
+    POSTCONDITION(S):
+    """
     # sessionpoints is a list of points
     print("create cluster method")
 
@@ -45,6 +90,11 @@ def create_cluster(sessionpoints):
 # Take list of points
 # Return list of clusters
 def make_cluster_refactor(listOfPoints):
+    """
+    <estimated return type> <function_name> (<parameters>)
+    PRECONDITION(S):
+    POSTCONDITION(S):
+    """
     # variables
     # lookbackQueue[0]  = oldest element
     # lookbackQueue[-1] = newest element
@@ -131,9 +181,14 @@ def make_cluster_refactor(listOfPoints):
     #     }
     # }
 
-
 # refactor using find_distance()
+
 def find_median(listOfPoints):
+    """
+    <estimated return type> <function_name> (<parameters>)
+    PRECONDITION(S):
+    POSTCONDITION(S):
+    """
     pointDistances = []
 
     for i in range(1, len(listOfPoints)):
@@ -158,6 +213,11 @@ def find_median(listOfPoints):
 
 
 def find_distance(point1, point2):
+    """
+    <estimated return type> <function_name> (<parameters>)
+    PRECONDITION(S):
+    POSTCONDITION(S):
+    """
     return math.sqrt(math.pow(int(point2.x - point1.x), 2) +
                      math.pow(int(point2.y - point1.y), 2))
 
@@ -165,6 +225,11 @@ def find_distance(point1, point2):
 # take queue and median distance as parameter and return boolean of whether or not there is a cluster in the queue
 # only return true if there is an extractable cluster
 def check_for_cluster(lookbackQueue, totalMedian):
+    """
+    <estimated return type> <function_name> (<parameters>)
+    PRECONDITION(S):
+    POSTCONDITION(S):
+    """
     clusterSize = 0
     for i in range(1, len(lookbackQueue)):
         if i == len(lookbackQueue):
@@ -183,6 +248,11 @@ def check_for_cluster(lookbackQueue, totalMedian):
 
 # take queue as input return cluster from inside the queue
 def extract_cluster(lookbackQueue, totalMedian): # todo reread this
+    """
+    <estimated return type> <function_name> (<parameters>)
+    PRECONDITION(S):
+    POSTCONDITION(S):
+    """
     global NUMBER_OF_ELEMENTS_TO_REMOVE
     NUMBER_OF_ELEMENTS_TO_REMOVE = 0
     cluster = []
@@ -204,6 +274,11 @@ def extract_cluster(lookbackQueue, totalMedian): # todo reread this
 
 # if all the points are less than median distance apart return, if so return true
 def check_if_cluster_too_big(lookbackQueue, totalMedian):
+    """
+    <estimated return type> <function_name> (<parameters>)
+    PRECONDITION(S):
+    POSTCONDITION(S):
+    """
     tooBig = True
     for i in range(1, len(lookbackQueue)):
         if lookbackQueue[i].startTime - lookbackQueue[i-1].startTime >= totalMedian:
