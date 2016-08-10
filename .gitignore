@@ -58,3 +58,5 @@ target/
 *.xml
 .idea/fixation-correction-sourcecode.iml
 .idea/.name
+
+*.dot
