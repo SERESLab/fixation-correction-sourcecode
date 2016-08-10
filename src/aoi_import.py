@@ -3,7 +3,7 @@ This file is part of Fixation-Correction-Sourcecode.
 
 Fixation-Correction-Sourcecode is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
+the Free Software Foundation, either version 2 of the License, or
 (at your option) any later version.
 
 Fixation-Correction-Sourcecode is distributed in the hope that it will be useful,
@@ -25,9 +25,11 @@ import globalVariables
 
 def get_aoi(filename):
     """
-    <estimated return type> <function_name> (<parameters>)
+    list[AOI] get_aoi(str)
     PRECONDITION(S):
+        get the filename of an aoi csv file given a fixation csv filename
     POSTCONDITION(S):
+        return a list of AOI objects in the associated aoi csv file for the fixation file given
     """
     aoi_list = []
     aoi_filename = get_aoi_filename(filename)
@@ -42,9 +44,11 @@ def get_aoi(filename):
 
 def get_aoi_filename(filename):
     """
-    <estimated return type> <function_name> (<parameters>)
+    str get_aoi_filename(str)
     PRECONDITION(S):
+        given a filename string
     POSTCONDITION(S):
+        return the associated filename that relates to AOI info for the given fixation file
     """
     underscore = filename.rfind('_')
     filename = filename[:-(len(filename)-underscore)]

@@ -3,7 +3,7 @@ This file is part of Fixation-Correction-Sourcecode.
 
 Fixation-Correction-Sourcecode is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
+the Free Software Foundation, either version 2 of the License, or
 (at your option) any later version.
 
 Fixation-Correction-Sourcecode is distributed in the hope that it will be useful,
@@ -23,17 +23,15 @@ import math
 
 class Distance(object):
     """
-    <class_name> (<constructor params>)
+    Distance (Point, Point)
     CONSTRUCTION:
-
-    METHOD(S):
-    <estimated return type> <method name> (<params>)
-    PRECONDITION(S):
-    POSTCONDITION(S):
+        set internal points to constructor params
+        set distance to the distance between the points
 
     MEMBER VARIABLE(S):
-    <name> <unit (optional)>
-    PURPOSE:
+    point1 Point
+    point2 Point
+    distance int/float - distance between point 1 and 2
     """
     def __init__(self, point1, point2):
         self.point1 = point1
@@ -43,17 +41,24 @@ class Distance(object):
 
 class Aoi(object):
     """
-    <class_name> (<constructor params>)
+    Aoi (str, str, int, int, int, int)
     CONSTRUCTION:
+        set internal variable to the ones read from csv
 
     METHOD(S):
-    <estimated return type> <method name> (<params>)
-    PRECONDITION(S):
-    POSTCONDITION(S):
+        bool containsPoint(int, int)
+        PRECONDITION(S):
+            given valid x and y ints
+        POSTCONDITION(S):
+            returns whether or not the given values are within the AOI rectangle
 
     MEMBER VARIABLE(S):
-    <name> <unit (optional)>
-    PURPOSE:
+    kind str - type of AOI, line/subline
+    name str - name of th aoi
+    x int - top left x coordinate
+    y int - top left y coordinate
+    width int - width of rectangle
+    height int - height of rectangle
     """
     def __init__(self, kind, name, x, y, width, height):
         self.kind = kind
@@ -71,20 +76,38 @@ class Aoi(object):
 #    def contains_point(self, point):
 
 
-
 class Point(object):
     """
-    <class_name> (<constructor params>)
+    Point (int, int, int, int, int, str, int, int, str)
     CONSTRUCTION:
+        set internal variables to param values
 
     METHOD(S):
-    <estimated return type> <method name> (<params>)
-    PRECONDITION(S):
-    POSTCONDITION(S):
+        bool/float xCorrectionCoefficient()
+        PRECONDITION(S):
+            xCorrected != x
+
+        POSTCONDITION(S):
+            return (xautocorrected-x)/(xCorrected-x)
+
+        bool/float yCorrectionCoefficient()
+        PRECONDITION(S):
+            yCorrected != y
+        POSTCONDITION(S):
+            return (yautocorrected-y)/(yCorrected-y)
 
     MEMBER VARIABLE(S):
-    <name> <unit (optional)>
-    PURPOSE:
+        x int - the original x coordinate of fixation point
+        y int - the original y coordinate of fixation point
+        duration int - the time ms? spent on that fixation
+        startTime int - the start time ms? of the fixation point
+        endTime int - the end time ms? of the fixation point
+        aoi str - the type of aoi that the point is associated with line/subline can be None
+        xCorrected int - manually corrected x coordinate
+        yCorrected int - manually corrected y coordinate
+        filename str - name of the file for fixation data
+        autoxCorrected int - auto corrected x coordinate
+        autoyCorrected int - auto corrected y coordinate
     """
     def __init__(self, x, y, duration, startTime, endTime, aoi, xCorrected, yCorrected, filename):
         self.x = x
@@ -101,7 +124,7 @@ class Point(object):
 
     def xCorrectionCoefficient(self):
         if not self.autoxCorrected:
-            return (self.autoxCorrected-self.x)/(self.xCorrected-self.y)
+            return (self.autoxCorrected-self.x)/(self.xCorrected-self.x)
         else:
             return False
 
@@ -114,17 +137,32 @@ class Point(object):
 
 class SessionsOfPoints:
     """
-    <class_name> (<constructor params>)
+    SessionsOfPoints ()
     CONSTRUCTION:
+        create empty dict container for listOfFiles
 
     METHOD(S):
     <estimated return type> <method name> (<params>)
+    None add_session(list[Point], str)
     PRECONDITION(S):
+        filename str is a valid filename
     POSTCONDITION(S):
+        listOfFiles maps the filename to the list[points] given
+
+    list[Point] get_session(str)
+    PRECONDITION(S):
+        the given str filename is a valid key in listOfFiles
+    POSTCONDITION(S):
+        return listOfFiles[filename]
+
+    int get_number_of_sessions()
+    PRECONDITION(S):
+        None
+    POSTCONDITION(S):
+        return the number of sessions in listOfFiles
 
     MEMBER VARIABLE(S):
-    <name> <unit (optional)>
-    PURPOSE:
+    listOfFiles list[Point]
     """
     def __init__(self):
         self.listOfFiles = {}
@@ -141,21 +179,26 @@ class SessionsOfPoints:
 
 class FileOfClusters:
     """
-    <class_name> (<constructor params>)
+    FileOfClusters ()
     CONSTRUCTION:
 
     METHOD(S):
-    <estimated return type> <method name> (<params>)
-    PRECONDITION(S):
-    POSTCONDITION(S):
+    None add_cluster(list[Point], str)
+        sets clusterdict[filename equal to list[point] (cluster)
+
+    list[Point] get_cluster(str)
+        returns list[point] from given key
+
+    int get_number_of_clusters()
+        returns the number of clusters
 
     MEMBER VARIABLE(S):
-    <name> <unit (optional)>
-    PURPOSE:
+    clusterDict dict{filename: list[Point]}
     """
     def __init__(self):
         self.clusterDict = {}
 
+    #todo this should probably append not assign
     def add_cluster(self, cluster, filename):
         self.clusterDict[filename] = cluster
 
@@ -163,11 +206,6 @@ class FileOfClusters:
         return self.clusterDict[filename]
 
     def get_number_of_clusters(self):
-        #number_of_clusters = 0
-        #for key in self.clusterDict:
-        #    for i in self.clusterDict[key]:
-        #        number_of_clusters += 1
-        #return number_of_clusters
         number_of_clusters = 0
         for i in self.clusterDict:
             number_of_clusters += len(i)

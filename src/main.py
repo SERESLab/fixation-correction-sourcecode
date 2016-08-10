@@ -3,7 +3,7 @@ This file is part of Fixation-Correction-Sourcecode.
 
 Fixation-Correction-Sourcecode is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
+the Free Software Foundation, either version 2 of the License, or
 (at your option) any later version.
 
 Fixation-Correction-Sourcecode is distributed in the hope that it will be useful,
@@ -28,9 +28,12 @@ import csv
 
 def find_number_of_corrected_points(list_of_clusters):
     """
-    <estimated return type> <function_name> (<parameters>)
-    PRECONDITION(S):
-    POSTCONDITION(S):
+    int find_number_of_corrected_points (list[list[point]])
+    PRECONDITION(S): given a list of clusters which is in the form:
+        list_of_clusters[list_of_points[point]]
+
+    POSTCONDITION(S): The lists are each traversed down to the point level
+        If a point has been corrected: it is added to the count, which is returned
     """
     count = 0
     for cluster in list_of_clusters:
@@ -42,9 +45,12 @@ def find_number_of_corrected_points(list_of_clusters):
 
 def find_number_of_points(list_of_clusters):
     """
-    <estimated return type> <function_name> (<parameters>)
-    PRECONDITION(S):
-    POSTCONDITION(S):
+    int find_number_of_points (list[list[point]])
+    PRECONDITION(S):given a list of clusters in the form:
+        list_of_clusters[list_of_points[point]]
+
+    POSTCONDITION(S): the lists are all traversed: adding the number of points at all levels
+        returning that count
     """
     count = 0
     for cluster in list_of_clusters:
@@ -55,9 +61,17 @@ def find_number_of_points(list_of_clusters):
 
 def find_autocorrected_distance(point):
     """
-    <estimated return type> <function_name> (<parameters>)
-    PRECONDITION(S):
-    POSTCONDITION(S):
+    float find_autocorrected_distance(point)
+    PRECONDITION(S): given a point object which has the properties:
+        -autoxCorrected - x coordinate of a point which has been corrected by this program
+        -autoyCorrected - y coordinate of a point which has been corrected by this program
+
+        -xCorrected - x coordinate of a point which has been corrected manually
+        -yCorrected - y coordinate of a point which has been corrected manually
+
+    POSTCONDITION(S): return the result of the equation:
+        sqrt((autoX - xCorr)^2 + (autoY - yCorr)^2)
+        which is the distance between the autoCorrected point and the manually corrected point
     """
     return math.sqrt(math.pow(int(point.autoxCorrected - point.xCorrected), 2) +
                      math.pow(int(point.autoyCorrected - point.yCorrected), 2))
@@ -65,19 +79,50 @@ def find_autocorrected_distance(point):
 
 def find_corrected_distance(point):
     """
-    <estimated return type> <function_name> (<parameters>)
-    PRECONDITION(S):
-    POSTCONDITION(S):
+    float find_corrected_distance(point)
+    PRECONDITION(S): given a point which has the properties:
+        -xCorrected - the x coordinate of a point which has been corrected manually
+        -yCorrected - the y coordinate of a point which has been corrected manually
+
+        -x - the original x value of a point collected by the eyetracker
+        -y - the original y value of a point collected by an eye tracker
+
+    POSTCONDITION(S): return the result of the equation:
+        sqrt((xCorr - x)^2 + (yCorr - y)^2)
+        which is the distance between the original point and the manually corrected point
     """
     return math.sqrt(math.pow(int(point.xCorrected - point.x), 2) +
                      math.pow(int(point.yCorrected - point.y), 2))
 
 
 def accuracy_by_aoi(list_of_aois, list_of_clusters):
+    # TODO throw exception for n/0
+    # TODO return 0 for 0/0
     """
-    <estimated return type> <function_name> (<parameters>)
-    PRECONDITION(S):
+    float/str accuracy_by_aoi (list[aoi], list[list[point]])
+    PRECONDITION(S): given a list of AOI objects and a list[list[]] of points:
+        AOI has the properties:
+            -containsPoint(x, y)
+
+        Point has the properties:
+            -xCorrected
+            -yCorrected
+            -autoxCorrected
+            -autoyCorrected
+
     POSTCONDITION(S):
+        ASSUMPTION:
+            a point cannot be contained in more than 1 AOI
+                -AOIs do not overlap
+
+        for every point in the list[list[]]:
+            number_of_points += 1
+        for every point in the list[list[]] that is contained in an AOI:
+            numberOfAccuratePoints += 1
+
+        return numberOfAccuratePoints/number_of_points
+        unless number_of_points == 0:
+            return "no points" maybe should return 0?
     """
     numberOfAccuratePoints = 0
     number_of_points = 0
@@ -90,7 +135,7 @@ def accuracy_by_aoi(list_of_aois, list_of_clusters):
                     break
     if number_of_points == 0:
         if numberOfAccuratePoints > 0:
-            return 'WTF?'
+            return 'division by zero'
         else:
             return 'No points'
     else:
