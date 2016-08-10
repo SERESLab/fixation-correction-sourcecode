@@ -44,3 +44,7 @@
         - y
         - width
         - height
+
+### UML class diagram(s)
+*this one was created using pyreverse an awesome tool that comes packaged with pylint*
+![the objects module class diagram](uml/objects.UML.svg)
